@@ -19,7 +19,7 @@ public class WitchTime : MonoBehaviour
     {
         Time.timeScale = slowedTime;
         Debug.Log("Slowed time.");
-        AudioManager.instance.PlayAudio(witchTime, "WitchTimeObject");
+        AudioManager.instance.PlayAudio(witchTime, "witchTimeSound");
         yield return new WaitForSeconds(slowmoTime);
         Time.timeScale = 1;
         Debug.Log("Time restored.");
