@@ -19,6 +19,7 @@ public class MarioScript : MonoBehaviour
     private Animator _animator;
     private Vector2 dir;
     private bool _intentionToJump;
+    public float jumpLimit = 2, currentJumps = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -88,15 +89,17 @@ public class MarioScript : MonoBehaviour
 
         rb.velocity = nVel;
 
-
+        if (currentJumps >= jumpLimit)
+        {
+            _intentionToJump = false;
+        }
         if (_intentionToJump && grnd)
         {
+            currentJumps++;
             _animator.Play("jumpAnimation");
             AddJumpForce();
             currentState = PlayerState.JUMP;
         }
-        _intentionToJump = false;
-
         _animator.SetBool("isGrounded", grnd);
     }
 
