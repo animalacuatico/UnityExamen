@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class WitchTime : MonoBehaviour
 {
-    public float slowmoTime = 1.0f, slowedTime = 0.25f;
+    public float slowmoTime = 5.5f, slowedTime = 0.25f;
     public AudioClip witchTime;
 
     void Update()
