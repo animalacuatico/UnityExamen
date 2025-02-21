@@ -100,7 +100,7 @@ public class MarioScript : MonoBehaviour
             AddJumpForce();
             currentState = PlayerState.JUMP;
         }
-        _animator.SetBool("isGrounded", grnd);
+        //_animator.SetBool("isGrounded", grnd);
     }
 
     public void AddJumpForce()
