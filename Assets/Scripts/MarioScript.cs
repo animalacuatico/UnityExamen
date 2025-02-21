@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using UnityEngine;
 
+
+public enum PlayerState { IDLE, RUN, JUMP };
 [RequireComponent(typeof(Rigidbody2D))]
 public class MarioScript : MonoBehaviour
 {
@@ -11,7 +13,7 @@ public class MarioScript : MonoBehaviour
     public LayerMask groundMask;
     public AudioClip jumpClip;
     public GameObject fireworkPrefab;
-
+    private PlayerState currentState;
     private Rigidbody2D rb;
     private SpriteRenderer _rend;
     private Animator _animator;
@@ -53,7 +55,15 @@ public class MarioScript : MonoBehaviour
         {
             Instantiate(fireworkPrefab, transform.position, Quaternion.identity);
         }
-
+        if (dir.magnitude == 0)
+        {
+            currentState = PlayerState.IDLE;
+        }
+        else
+        {
+            currentState = PlayerState.RUN;
+        }
+        
         #region ANIMACIONES
         // ANIMACIONES (PROXIMA DIA ORGANIZARLO EN OTRO SCRIPT)
         if (dir != Vector2.zero)
@@ -83,6 +93,7 @@ public class MarioScript : MonoBehaviour
         {
             _animator.Play("jumpAnimation");
             AddJumpForce();
+            currentState = PlayerState.JUMP;
         }
         _intentionToJump = false;
 
@@ -110,5 +121,9 @@ public class MarioScript : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, Vector2.down * rayDistance);
+    }
+    public PlayerState GetPlayerState()
+    {
+        return currentState;
     }
 }
